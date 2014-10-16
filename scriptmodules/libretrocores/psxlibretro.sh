@@ -10,7 +10,7 @@ function build_psxlibretro() {
     pushd "$rootdir/emulatorcores/pcsx_rearmed"
     ./configure --platform=libretro
     make clean
-    make
+    make -j2
     if [[ -z `find $rootdir/emulatorcores/pcsx_rearmed/ -name "*libretro*.so"` ]]; then
         __ERRMSGS="$__ERRMSGS Could not successfully compile Playstation core."
     fi
