@@ -30,19 +30,7 @@ function build_emulationstation() {
 }
 
 function install_emulationstation() {
-    cat > /usr/bin/emulationstation << _EOF_
-#!/bin/bash
-
-es_bin="$rootdir/supplementary/EmulationStation/emulationstation"
-
-nb_lock_files=\$(find /tmp -name ".X?-lock" | wc -l)
-if [ \$nb_lock_files -ne 0 ]; then
-    echo "X is running. Please shut down X in order to mitigate problems with loosing keyboard input. For example, logout from LXDE."
-    exit 1
-fi
-
-\$es_bin "\$@"
-_EOF_
+    ls /opt/retropie/supplementary/EmulationStation/emulationstation /usr/bin/emulationstation
     chmod +x /usr/bin/emulationstation
 
     if [[ -f "$rootdir/supplementary/EmulationStation/emulationstation" ]]; then
