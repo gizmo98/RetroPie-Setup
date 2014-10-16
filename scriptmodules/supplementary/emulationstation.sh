@@ -23,8 +23,9 @@ function sources_emulationstation() {
 function build_emulationstation() {
     # EmulationStation
     pushd "$rootdir/supplementary/EmulationStation" || return 1
-    cmake -D CMAKE_CXX_COMPILER=g++-4.7 . || return 1
-    make || return 1
+    sed -i 's/GLSystem "Desktop OpenGL" CACHE/GLSystem "OpenGL ES" CACHE/g' CMakeLists.txt
+    cmake .
+    make -j2
     popd
 }
 
