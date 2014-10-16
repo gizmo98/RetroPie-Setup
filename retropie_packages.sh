@@ -43,7 +43,7 @@ __ERRMSGS=""
 __INFMSGS=""
 __doReboot=0
 
-__default_cflags="-O2 -pipe -mfpu=vfp -march=armv6j -mfloat-abi=hard"
+__default_cflags="-pipe -mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -marm"
 __default_asflags=""
 __default_makeflags=""
 __default_gcc_version="4.7"
