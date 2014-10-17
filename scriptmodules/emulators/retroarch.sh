@@ -16,9 +16,11 @@ function sources_retroarch() {
 
 function build_retroarch() {
     pushd "$rootdir/emulators/RetroArch"
-    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-x11 --disable-oss --disable-pulse --enable-floathard
+    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-oss --disable-pulse --enable-egl --enable-gles --enable-floathard --enable-neon --enable-sdl2 --disable-lakka
+    sed -i 's|#define HAVE_WAYLAND 1|/* #undef HAVE_WAYLAND */|g' config.h
+    sed -i 's/HAVE_WAYLAND = 1/HAVE_WAYLAND = 0/g' config.mk
     make clean
-    make
+    make -j2
     popd
 }
 
@@ -75,12 +77,12 @@ function configure_retroarch() {
     ensureKeyValue "system_directory" "$romdir/../BIOS" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "config_save_on_exit" "false" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "video_aspect_ratio" "1.33" "$rootdir/configs/all/retroarch.cfg"
-    ensureKeyValue "video_smooth" "false" "$rootdir/configs/all/retroarch.cfg"
+    ensureKeyValue "video_smooth" "true" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "video_threaded" "true" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "core_options_path" "$rootdir/configs/all/retroarch-core-options.cfg" "$rootdir/configs/all/retroarch.cfg"
 
     # enable hotkey ("select" button)
-    ensureKeyValue "input_enable_hotkey" "nul" "$rootdir/configs/all/retroarch.cfg"
+    ensureKeyValue "input_enable_hotkey" "escape" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "input_exit_emulator" "escape" "$rootdir/configs/all/retroarch.cfg"
 
     # enable and configure rewind feature
@@ -109,22 +111,22 @@ function configure_retroarch() {
     # system-specific shaders, SNES
     ensureKeyValue "video_shader" "\"$rootdir/emulators/RetroArch/shader/snes_phosphor.glslp\"" "$rootdir/configs/snes/retroarch.cfg"
     ensureKeyValue "video_shader_enable" "false" "$rootdir/configs/snes/retroarch.cfg"
-    ensureKeyValue "video_smooth" "false" "$rootdir/configs/snes/retroarch.cfg"
+    ensureKeyValue "video_smooth" "true" "$rootdir/configs/snes/retroarch.cfg"
 
     # system-specific shaders, NES
     ensureKeyValue "video_shader" "\"$rootdir/emulators/RetroArch/shader/phosphor.glslp\"" "$rootdir/configs/nes/retroarch.cfg"
     ensureKeyValue "video_shader_enable" "false" "$rootdir/configs/nes/retroarch.cfg"
-    ensureKeyValue "video_smooth" "false" "$rootdir/configs/nes/retroarch.cfg"
+    ensureKeyValue "video_smooth" "true" "$rootdir/configs/nes/retroarch.cfg"
 
     # system-specific shaders, Megadrive
     ensureKeyValue "video_shader" "\"$rootdir/emulators/RetroArch/shader/phosphor.glslp\"" "$rootdir/configs/megadrive/retroarch.cfg"
     ensureKeyValue "video_shader_enable" "false" "$rootdir/configs/megadrive/retroarch.cfg"
-    ensureKeyValue "video_smooth" "false" "$rootdir/configs/megadrive/retroarch.cfg"
+    ensureKeyValue "video_smooth" "true" "$rootdir/configs/megadrive/retroarch.cfg"
 
     # system-specific shaders, Mastersystem
     ensureKeyValue "video_shader" "\"$rootdir/emulators/RetroArch/shader/phosphor.glslp\"" "$rootdir/configs/mastersystem/retroarch.cfg"
     ensureKeyValue "video_shader_enable" "false" "$rootdir/configs/mastersystem/retroarch.cfg"
-    ensureKeyValue "video_smooth" "false" "$rootdir/configs/mastersystem/retroarch.cfg"
+    ensureKeyValue "video_smooth" "true" "$rootdir/configs/mastersystem/retroarch.cfg"
 
     # system-specific shaders, Gameboy
     ensureKeyValue "video_shader" "\"$rootdir/emulators/RetroArch/shader/hq4x.glslp\"" "$rootdir/configs/gb/retroarch.cfg"
