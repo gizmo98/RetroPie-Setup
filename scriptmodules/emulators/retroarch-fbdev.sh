@@ -1,8 +1,8 @@
-rp_module_id="retroarch"
-rp_module_desc="RetroArch"
-rp_module_menus="2+"
+rp_module_id="retroarch-fbdev"
+rp_module_desc="RetroArch fbdev"
+rp_module_menus="4+"
 
-function depends_retroarch() {
+function depends_retroarch-fbdev() {
     rps_checkNeededPackages libudev-dev
     cat > "/etc/udev/rules.d/99-evdev.rules" << _EOF_
 KERNEL=="event*", NAME="input/%k", MODE="666"
@@ -10,13 +10,13 @@ _EOF_
     sudo chmod 666 /dev/input/event*
 }
 
-function sources_retroarch() {
+function sources_retroarch-fbdev() {
     gitPullOrClone "$rootdir/emulators/RetroArch" git://github.com/libretro/RetroArch.git
 }
 
-function build_retroarch() {
+function build_retroarch-fbdev() {
     pushd "$rootdir/emulators/RetroArch"
-    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-oss --disable-pulse --enable-egl --enable-gles --enable-floathard --enable-neon --enable-sdl2 --disable-lakka
+    ./configure --prefix="$rootdir/emulators/RetroArch/installdir" --disable-oss --disable-pulse --enable-egl --enable-gles --enable-floathard --enable-neon --enable-sdl2 --disable-lakka --disable-x11
     sed -i 's|#define HAVE_WAYLAND 1|/* #undef HAVE_WAYLAND */|g' config.h
     sed -i 's/HAVE_WAYLAND = 1/HAVE_WAYLAND = 0/g' config.mk
     make clean
@@ -24,7 +24,7 @@ function build_retroarch() {
     popd
 }
 
-function install_retroarch() {
+function install_retroarch-fbdev() {
     pushd "$rootdir/emulators/RetroArch"
     make install
     popd
@@ -40,7 +40,7 @@ function ensureSystemretroconfig {
     fi
 }
 
-function configure_retroarch() {
+function configure_retroarch-fbdev() {
     cp $scriptdir/supplementary/retroarch-zip "$rootdir/emulators/RetroArch/installdir/bin/"
 
     if [[ ! -d "$rootdir/configs/all/" ]]; then
@@ -82,9 +82,6 @@ function configure_retroarch() {
     ensureKeyValue "video_smooth" "true" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "video_threaded" "true" "$rootdir/configs/all/retroarch.cfg"
     ensureKeyValue "core_options_path" "$rootdir/configs/all/retroarch-core-options.cfg" "$rootdir/configs/all/retroarch.cfg"
-    ensureKeyValue "video_driver" "sdl2" "$rootdir/configs/all/retroarch.cfg"
-    ensureKeyValue "audio_driver" "alsathread" "$rootdir/configs/all/retroarch.cfg"
-    ensureKeyValue "video_fullscreen" "true" "$rootdir/configs/all/retroarch.cfg"
 
     # enable hotkey ("select" button)
     ensureKeyValue "input_enable_hotkey" "escape" "$rootdir/configs/all/retroarch.cfg"

@@ -1,6 +1,6 @@
 rp_module_id="mupen64plus"
 rp_module_desc="N64 LibretroCore Mupen64Plus"
-rp_module_menus="2+"
+rp_module_menus="4+"
 
 function sources_mupen64plus() {
     gitPullOrClone "$rootdir/emulatorcores/mupen64plus" git://github.com/libretro/mupen64plus-libretro.git

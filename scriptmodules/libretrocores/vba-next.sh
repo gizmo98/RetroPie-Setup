@@ -11,7 +11,7 @@ function sources_vba-next() {
 function build_vba-next() {
     pushd "$rootdir/emulatorcores/vba-next"
     make -f Makefile.libretro clean
-    make -f Makefile.libretro -j2 platform=armvhardfloatunix
+    make -f Makefile.libretro -j2 platform=armvhardfloatunix TILED_RENDERING=1 HAVE_NEON=1
     if [[ -z `find $rootdir/emulatorcores/vba-next/ -name "*libretro*.so"` ]]; then
         __ERRMSGS="$__ERRMSGS Could not successfully compile GBA core."
     fi
