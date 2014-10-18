@@ -44,6 +44,19 @@ function rps_downloadBinaries()
     rm binariesDownload.tar.bz2
 }
 
+function rps_main_default()
+{
+    local idx
+
+    __INFMSGS=
+
+    clear	
+
+    ensureRootdirExits
+
+    rp_callModule aptpackages
+}
+
 # download, extract, and install binaries
 function rps_main_binaries()
 {

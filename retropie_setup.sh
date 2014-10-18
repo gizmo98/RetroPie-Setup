@@ -62,7 +62,7 @@ __backtitle="PetRockBlock.com - RetroPie Setup. Installation folder: $rootdir fo
 
 while true; do
     cmd=(dialog --backtitle "$__backtitle" --menu "Choose installation either based on binaries or on sources." 22 76 16)
-    options=(1 "Binaries-based INSTALLATION (faster, but possibly not up-to-date)"
+    options=(1 "Main INSTALLATION"
              2 "Source-based INSTALLATION (16-20 hours (!), but up-to-date versions)"
              3 "SETUP (only if you already have run one of the installations above)"
              4 "EXPERIMENTAL packages (these are potentially unstable packages)"
@@ -72,7 +72,7 @@ while true; do
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     if [ "$choices" != "" ]; then
         case $choices in
-            1) rps_main_binaries ;;
+            1) rps_main_default ;;
             2) rps_main_options ;;
             3) rps_main_setup ;;
             4) rps_main_experimental ;;
