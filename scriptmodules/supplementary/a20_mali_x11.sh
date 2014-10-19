@@ -8,9 +8,9 @@ function install_mali-x11()
   modprobe mali
   
   # install mali userspace driver
-  export ABI='armhf'
+  # export ABI='armhf'
   # export VERSION='r3p2-01rel1'
-  export EGL_TYPE='x11'
+  # export EGL_TYPE='x11'
   pushd /opt/retropie/supplementary
   git clone https://github.com/linux-sunxi/sunxi-mali.git
   cd sunxi-mali
@@ -20,10 +20,11 @@ function install_mali-x11()
   # make config.mk
   make install
   popd
-  unset ABI
+  # unset ABI
   # unset VERSION
-  unset EGL_TYPE
+  # unset EGL_TYPE
 
+  # Update old gles2 header files	
   pushd /opt/retropie/supplementary/
   mkdir gles2
   wget "http://www.khronos.org/registry/gles/api/GLES2/gl2.h"

@@ -9,7 +9,7 @@ function install_olimex()
 
   A20_depens
   A20_olimex_debian_fix
-  # A20_gles2_headers
+  A20_gles2_headers
 }
   
 function A20_depens()
@@ -50,7 +50,7 @@ _EOF_
   # install necessary packages
   # apt-get -t wheezy-backports install libsdl2-dev
   apt-get -y install libsdl1.2-dev libegl1-mesa-dev libgles2-mesa-dev
-  apt-get -y remove libpulse0 libpulse-dev
+  # apt-get -y remove libpulse0 libpulse-dev
 }
   
 function A20_ump_install()
@@ -77,7 +77,7 @@ function A20_dri2_install()
   cd libdri2
   ./autogen.sh
   ./configure
-  make
+  make -j2
   make install
   ldconfig
   popd
@@ -118,7 +118,7 @@ function A20_fbturbo_build()
 
   autoreconf -vi
   ./configure --prefix=/usr
-  make
+  make -j2
   popd
 }
   
@@ -164,14 +164,22 @@ _EOF_
 
   # enable module mali at startup
   sed -i 's/^#mali/mali/g' /etc/modules
+
+  # remove unnecessary files
+  rm /a
+  rmdir /Desktop
 }
 
 function A20_gles2_headers()
 {
+  # Update old gles2 header files	
   pushd /opt/retropie/supplementary/
   mkdir gles2
   wget "http://www.khronos.org/registry/gles/api/GLES2/gl2.h"
   wget "http://www.khronos.org/registry/gles/api/GLES2/gl2platform.h"
   wget "http://www.khronos.org/registry/gles/api/GLES2/gl2ext.h"
+  mv gl2.h /usr/include/GLES2/gl2.h
+  mv gl2platform.h /usr/include/GLES2/gl2platform.h
+  mv gl2ext.h /usr/include/GLES2/gl2ext.h
   popd
 }
