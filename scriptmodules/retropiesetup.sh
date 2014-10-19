@@ -64,6 +64,7 @@ function rps_main_default()
         rp_callModule aptpackages
         rp_callModule handleaptpackages
         rp_callModule modules
+        rp_callModule olimex
         
         rp_callModule sdl
         rp_callModule emulationstation
