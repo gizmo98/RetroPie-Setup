@@ -48,13 +48,59 @@ function rps_main_default()
 {
     local idx
 
-    __INFMSGS=
+    __INFMSGS=""
 
-    clear	
+    clear
+    printMsg "Main installation"
 
-    ensureRootdirExits
+    ensureRootdirExists
+    now=$(date +'%d%m%Y_%H%M')
+    {
+        # install all needed dependencies
+        for idx in "${__mod_idx[@]}"; do
+            rp_callModule "$idx" "depends"
+        done
 
-    rp_callModule aptpackages
+        rp_callModule aptpackages
+        rp_callModule handleaptpackages
+        rp_callModule modules
+        
+        rp_callModule sdl
+        rp_callModule emulationstation
+        rp_callModule retroarch
+        
+        rp_callModule stella
+        rp_callModule scummvm
+        rp_callModule zmachine
+        rp_callModule fuse
+        rp_callModule c64roms
+        rp_callModule hatari
+        rp_callModule dosbox
+        rp_callModule eduke32
+
+        rp_callModule runcommand
+        
+        # configure all emulator and libretro components
+        for idx in "${__mod_idx[@]}"; do
+            [[ $idx < 300 ]] && rp_callModule "$idx" "configure"
+        done
+
+        rp_callModule sambashares
+
+    } 2>&1 > >(tee >(gzip --stdout > $scriptdir/logs/run_$now.log.gz))
+
+    chown -R $user:$user $scriptdir/logs/run_$now.log.gz
+
+    __INFMSGS="$__INFMSGS The Amiga emulator can be started from command line with '$rootdir/emulators/uae4all/uae4all'. Note that you must manually copy a Kickstart rom with the name 'kick.rom' to the directory $rootdir/emulators/uae4all/."
+    __INFMSGS="$__INFMSGS You need to copy NeoGeo BIOS files to the folder '$rootdir/emulators/gngeo-0.7/neogeo-bios/'."
+    __INFMSGS="$__INFMSGS You need to copy Intellivision BIOS files to the folder '/usr/local/share/jzintv/rom'."
+
+    if [[ ! -z $__INFMSGS ]]; then
+        dialog --backtitle "$__backtitle" --msgbox "$__INFMSGS" 20 60
+    fi
+
+    dialog --backtitle "$__backtitle" --msgbox "Finished tasks.\nStart the front end with 'emulationstation'. You now have to copy roms to the roms folders. Have fun!" 22 76
+
 }
 
 # download, extract, and install binaries
