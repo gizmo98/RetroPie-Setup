@@ -31,6 +31,7 @@ function build_sdl() {
 function install_sdl() {
     pushd "$rootdir/supplementary/SDL2-2.0.1" || return 1
     make install || return 1
-    cp -R include /usr/include/SDL2	
+    cp -R include /usr/include/
+    mv /usr/include/include /usr/include/SDL2	
     popd || return 1
 }

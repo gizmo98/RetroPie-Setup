@@ -8,7 +8,7 @@ function depends_emulationstation() {
         libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
         libasound2-dev cmake g++-4.7
 
-    rp_callModule "libsdlbinaries"
+    # rp_callModule "libsdlbinaries"
 }
 
 function sources_emulationstation() {
@@ -30,13 +30,13 @@ function build_emulationstation() {
 }
 
 function install_emulationstation() {
-    ls /opt/retropie/supplementary/EmulationStation/emulationstation /usr/bin/emulationstation
+    ln /opt/retropie/supplementary/EmulationStation/emulationstation /usr/bin/emulationstation
     chmod +x /usr/bin/emulationstation
 
     if [[ -f "$rootdir/supplementary/EmulationStation/emulationstation" ]]; then
         # make sure that ES has enough GPU memory
-        ensureKeyValueBootconfig "gpu_mem" 256 "/boot/config.txt"
-        ensureKeyValueBootconfig "overscan_scale" 1 "/boot/config.txt"
+        # ensureKeyValueBootconfig "gpu_mem" 256 "/boot/config.txt"
+        # ensureKeyValueBootconfig "overscan_scale" 1 "/boot/config.txt"
         return 0
     else
         return 1
