@@ -70,6 +70,14 @@ function rps_main_default()
         rp_callModule emulationstation
         rp_callModule retroarch
         
+        rp_callModule pocketsnes
+        rp_callModule psxlibretro
+        rp_callModule picodrive
+        rp_callModule vba-next
+        rp_callModule gbclibretro
+        rp_callModule genesislibretro
+        rp_callModule neslibretro
+        
         rp_callModule stella
         rp_callModule scummvm
         rp_callModule zmachine
