@@ -78,14 +78,14 @@ function rps_main_default()
         rp_callModule genesislibretro
         rp_callModule neslibretro
         
-        rp_callModule stella
-        rp_callModule scummvm
-        rp_callModule zmachine
-        rp_callModule fuse
-        rp_callModule c64roms
-        rp_callModule hatari
-        rp_callModule dosbox
-        rp_callModule eduke32
+        #rp_callModule stella
+        #rp_callModule scummvm
+        #rp_callModule zmachine
+        #rp_callModule fuse
+        #rp_callModule c64roms
+        #rp_callModule hatari
+        #rp_callModule dosbox
+        #rp_callModule eduke32
 
         rp_callModule runcommand
         

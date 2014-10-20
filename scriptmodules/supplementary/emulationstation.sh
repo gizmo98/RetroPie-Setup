@@ -13,7 +13,7 @@ function depends_emulationstation() {
 
 function sources_emulationstation() {
     # sourced of EmulationStation
-    gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/Aloshi/EmulationStation" || return 1
+    gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/gizmo98/EmulationStation" || return 1
     pushd "$rootdir/supplementary/EmulationStation" || return 1
     git pull || return 1
     git checkout unstable || return 1
