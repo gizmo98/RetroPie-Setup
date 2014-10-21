@@ -67,8 +67,8 @@ while true; do
              3 "SETUP (only if you already have run one of the installations above)"
              4 "EXPERIMENTAL packages (these are potentially unstable packages)"
              5 "UPDATE RetroPie Setup script"
-             6 "UPDATE RetroPie Binaries"
-             7 "Perform REBOOT" )
+             #6 "UPDATE RetroPie Binaries"
+             6 "Perform REBOOT" )
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     if [ "$choices" != "" ]; then
         case $choices in
@@ -77,8 +77,8 @@ while true; do
             3) rps_main_setup ;;
             4) rps_main_experimental ;;
             5) rps_main_updatescript ;;
-            6) rps_downloadBinaries ;;
-            7) rps_main_reboot ;;
+            #6) rps_downloadBinaries ;;
+            6) rps_main_reboot ;;
         esac
     else
         break
