@@ -57,9 +57,9 @@ function rps_main_default()
     now=$(date +'%d%m%Y_%H%M')
     {
         # install all needed dependencies
-        for idx in "${__mod_idx[@]}"; do
-            rp_callModule "$idx" "depends"
-        done
+        #for idx in "${__mod_idx[@]}"; do
+        #    rp_callModule "$idx" "depends"
+        #done
 
         rp_callModule aptpackages
         rp_callModule handleaptpackages
@@ -90,9 +90,9 @@ function rps_main_default()
         rp_callModule runcommand
         
         # configure all emulator and libretro components
-        for idx in "${__mod_idx[@]}"; do
-            [[ $idx < 300 ]] && rp_callModule "$idx" "configure"
-        done
+        #for idx in "${__mod_idx[@]}"; do
+        #    [[ $idx < 300 ]] && rp_callModule "$idx" "configure"
+        #done
 
         rp_callModule sambashares
 
