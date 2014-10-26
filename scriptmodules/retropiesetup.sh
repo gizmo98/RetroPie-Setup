@@ -77,6 +77,7 @@ function rps_main_default()
         rp_callModule gbclibretro
         rp_callModule genesislibretro
         rp_callModule neslibretro
+	rp_callModule doom
         
         #rp_callModule stella
         #rp_callModule scummvm

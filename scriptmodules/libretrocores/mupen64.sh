@@ -11,7 +11,7 @@ function sources_mupen64plus() {
 function build_mupen64plus() {
     pushd "$rootdir/emulatorcores/mupen64plus"
     make clean
-    make -j2 platform=armvhardfloatunixneongles WITH_DYNAREC=arm CPUFLAGS=" -mcpu=cortex-a7 -mfpu=neon-vfp4 -mfloat-abi=hard -DNO_ASM -DNOSSE"
+    make -j2 platform=armvhardfloatunixneongles WITH_DYNAREC=arm CPUFLAGS=" -mcpu=cortex-a7 -mfpu=neon-vfp4 -mfloat-abi=hard -DNO_ASM -DNOSSE" GLIDE2GL=0
     if [[ -z `find $rootdir/emulatorcores/mupen64plus/ -name "*libretro*.so"` ]]; then
         __ERRMSGS="$__ERRMSGS Could not successfully compile GBA core."
     fi
