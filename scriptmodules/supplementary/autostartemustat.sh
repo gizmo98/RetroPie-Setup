@@ -9,16 +9,20 @@ function configure_autostartemustat() {
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     if [ "$choices" != "" ]; then
         case $choices in
-            1) sed /etc/inittab -i -e "s|1:2345:respawn:/bin/login -f $user tty1 </dev/tty1 >/dev/tty1 2>&1|1:2345:respawn:/sbin/getty --noclear 38400 tty1|g"
-               sed /etc/profile -i -e "/emulationstation/d"
+            1) rm 
                dialog --backtitle "$__backtitle" --msgbox "Enabled original boot behaviour. ATTENTION: If you still have the custom splash screen enabled (via this script), you need to jump between consoles after booting via Ctrl+Alt+F2 and Ctrl+Alt+F1 to see the login prompt. You can restore the original boot behavior of the RPi by disabling the custom splash screen with this script." 22 76
                             ;;
-            2) sed /etc/inittab -i -e "s|1:2345:respawn:/sbin/getty --noclear 38400 tty1|1:2345:respawn:\/bin\/login -f $user tty1 \<\/dev\/tty1 \>\/dev\/tty1 2\>\&1|g"
-               update-rc.d lightdm disable 2 # taken from /usr/bin/raspi-config
-               if [ -z $(egrep -i "emulationstation$" /etc/profile) ]
-               then
-                   echo "[ -n \"\${SSH_CONNECTION}\" ] || emulationstation" >> /etc/profile
-               fi
+            2) cat >> /etc/xdg/autostart/emulationstation.desktop << _EOF_
+[Desktop Entry]
+Name=Emulationstation
+Comment=Start Emulationstation
+Exec=/usr/bin/emulationstation
+Terminal=false
+Type=Application
+NoDisplay=false
+OnlyShowIn=LXDE;OPENBOX;GNOME;
+AutostartCondition=GNOME3 unless-session gnome
+_EOF_
                dialog --backtitle "$__backtitle" --msgbox "Emulation Station is now starting on boot." 22 76
                             ;;
         esac
