@@ -13,7 +13,7 @@ function depends_emulationstation() {
 
 function sources_emulationstation() {
     # sourced of EmulationStation
-    gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/gizmo98/EmulationStation" || return 1
+    gitPullOrClone "$rootdir/supplementary/EmulationStation" "https://github.com/aloshi/EmulationStation" || return 1
     pushd "$rootdir/supplementary/EmulationStation" || return 1
     git pull || return 1
     git checkout unstable || return 1
@@ -24,12 +24,17 @@ function build_emulationstation() {
     # EmulationStation
     pushd "$rootdir/supplementary/EmulationStation" || return 1
     sed -i 's/GLSystem "Desktop OpenGL" CACHE/GLSystem "OpenGL ES" CACHE/g' CMakeLists.txt
+    unset CFLAGS
+    unset CXXFLAGS
     cmake .
     make -j2
+    [[ -z "${CFLAGS}"        ]] && export CFLAGS="${__default_cflags}"
+    [[ -z "${CXXFLAGS}" ]] && export CXXFLAGS="${__default_cflags}"
     popd
 }
 
 function install_emulationstation() {
+    rm /usr/bin/emulationstation
     ln /opt/retropie/supplementary/EmulationStation/emulationstation /usr/bin/emulationstation
     chmod +x /usr/bin/emulationstation
 

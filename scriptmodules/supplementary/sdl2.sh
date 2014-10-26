@@ -3,7 +3,7 @@ rp_module_desc="SDL 2.0.1"
 rp_module_menus="2+"
 
 function depends_sdl() {
-    rps_checkNeededPackages libudev-dev libasound2-dev libdbus-1-dev
+    rps_checkNeededPackages libudev-dev libaudio-dev libasound2-dev libdbus-1-dev libx11-dev libxrandr-dev libxcursor-dev libxi-dev libxxf86vm-dev libesd0-dev libegl1-mesa-dev 
 }
 
 function sources_sdl() {
@@ -21,7 +21,7 @@ function build_sdl() {
     pushd "$rootdir/supplementary/SDL2-2.0.1" || return 1
     mv /usr/include/GL /usr/include/GL.bak
     mv /usr/include/GLES /usr/include/GLES.bak
-    ./configure --disable-video-opengl --enable-video-opengles --enable-libudev --enable-alsa --disable-oss
+    ./configure --disable-video-opengl --enable-video-opengles --enable-libudev --enable-alsa
     make -j2
     mv /usr/include/GL.bak /usr/include/GL
     mv /usr/include/GLES.bak /usr/include/GLES
