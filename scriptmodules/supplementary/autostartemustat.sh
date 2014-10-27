@@ -9,7 +9,7 @@ function configure_autostartemustat() {
     choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
     if [ "$choices" != "" ]; then
         case $choices in
-            1) rm 
+            1) rm /etc/xdg/autostart/emulationstation.desktop
                dialog --backtitle "$__backtitle" --msgbox "Enabled original boot behaviour. ATTENTION: If you still have the custom splash screen enabled (via this script), you need to jump between consoles after booting via Ctrl+Alt+F2 and Ctrl+Alt+F1 to see the login prompt. You can restore the original boot behavior of the RPi by disabling the custom splash screen with this script." 22 76
                             ;;
             2) cat >> /etc/xdg/autostart/emulationstation.desktop << _EOF_
