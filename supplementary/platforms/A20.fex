@@ -300,8 +300,8 @@ nand_ce7 =
 good_block_ratio = 0
 
 [disp_init]
-sunxi_mali_mem_reserve=96
-sunxi_fb_mem_reserve=16
+sunxi_mali_mem_reserve=128
+sunxi_fb_mem_reserve=32
 sunxi_ve_mem_reserve=128
 disp_init_enable = 1
 disp_mode = 0

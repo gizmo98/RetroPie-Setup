@@ -135,8 +135,8 @@ function A20_olimex_debian_fix()
   # enable necessary services
   /etc/init.d/kmod start
   /etc/init.d/alsa-utils start
-  update-rc.d kmod defaults
-  update-rc.d alsa-utils defaults
+  update-rc.d kmod enable
+  update-rc.d alsa-utils enable
 
   # fix /etc/hosts file
   sed -i 's/a20_OLinuXino/a20-OLinuXino/g' /etc/hosts

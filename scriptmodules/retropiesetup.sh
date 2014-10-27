@@ -79,8 +79,11 @@ function rps_main_default()
         rp_callModule neslibretro
 	rp_callModule doom
         
-        #rp_callModule stella
-        #rp_callModule scummvm
+	rp_callModule advmame
+	rp_callModule basilisk
+        rp_callModule stella
+        rp_callModule atari800
+ 	#rp_callModule scummvm
         #rp_callModule zmachine
         #rp_callModule fuse
         #rp_callModule c64roms
@@ -89,7 +92,9 @@ function rps_main_default()
         #rp_callModule eduke32
 
         rp_callModule runcommand
-        
+        rp_callModule esconfig
+ 	rp_callModule retroarchautoconf
+	
         # configure all emulator and libretro components
         #for idx in "${__mod_idx[@]}"; do
         #    [[ $idx < 300 ]] && rp_callModule "$idx" "configure"
