@@ -93,6 +93,7 @@ function rps_main_default()
 
         rp_callModule runcommand
         rp_callModule esconfig
+	rp_callModule esthemesimple
  	rp_callModule retroarchautoconf
 	
         # configure all emulator and libretro components
