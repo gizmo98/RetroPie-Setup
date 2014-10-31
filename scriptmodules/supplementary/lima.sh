@@ -4,7 +4,8 @@ rp_module_menus="4+"
 
 function install_lima() {
   gitPullOrClone "$rootdir/supplementary/lima" "git://gitorious.org/lima/lima.git"
-  cd lima
+  pushd "$rootdir/supplementary/lima"
   make
   make install
+  popd
 }
