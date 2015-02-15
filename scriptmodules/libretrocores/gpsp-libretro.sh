@@ -17,6 +17,7 @@ function install_gpsp-libretro() {
         'gpsp_libretro.so'
         'COPYING'
         'readme.txt'
+        'game_config.txt'
     )
 }
 
