@@ -19,7 +19,10 @@ function sources_mupen64plus-testing() {
         'mupen64plus rsp-hle'
         'gizmo98 video-gles2rice'
         #'Narann video-rice'
+        #'gizmo98 video-gles2n64-1'
+        #'Nebuleon video-gles2n64'
         'gizmo98 video-gles2n64 testing'
+        'gizmo98 video-gles2glide64'
     )
     local repo
     for repo in "${repos[@]}"; do
@@ -41,12 +44,15 @@ function build_mupen64plus-testing() {
             [[ "$dir" == "mupen64plus-video-rice" ]] && params+=("VC=1")
             [[ "$dir" == "mupen64plus-video-gles2rice" ]] && params+=("VC=1")
             [[ "$dir" == "mupen64plus-audio-omx" ]] && params+=("VC=1")
+            [[ "$dir" == "mupen64plus-video-gles2glide64" ]] && params+=("VC=1")
             if isPlatform "rpi2"; then
                 [[ "$dir" == "mupen64plus-core" ]] && params+=("VC=1" "NEON=1")
                 [[ "$dir" == "mupen64plus-video-gles2n64" ]] && params+=("VC=1" "NEON=1")
+                [[ "$dir" == "mupen64plus-video-gles2n64-1" ]] && params+=("VC=1" "NEON=1")
             else
                 [[ "$dir" == "mupen64plus-core" ]] && params+=("VC=1" "VFP_HARD=1")
                 [[ "$dir" == "mupen64plus-video-gles2n64" ]] && params+=("VC=1")
+                [[ "$dir" == "mupen64plus-video-gles2n64-1" ]] && params+=("VC=1")
             fi
             make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS"
         fi
