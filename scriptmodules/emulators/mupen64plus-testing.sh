@@ -116,6 +116,7 @@ frame render rate=1
 #Vertical Sync Divider (0=No VSYNC, 1=60Hz, 2=30Hz, etc)
 vertical sync=0
 multisampling=0
+auto resolution=1
 #These options enable different rendering paths, they
 #can relieve pressure on the GPU / CPU.
 enable fog=0
@@ -140,7 +141,7 @@ force screen clear=1
 tribuffer opt=1
 flip vertical=0
 hack banjo tooie=0
-hack zelda=0
+hack zelda=1
 hack alpha=0
 hack z=0
 _EOF_
@@ -252,7 +253,7 @@ _EOF_
     chown -R $user:$user "$rootdir/configs/n64"
     su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64"
     iniConfig " = " "" "$rootdir/configs/n64/mupen64plus.cfg"
-    # iniSet "VideoPlugin" "mupen64plus-video-n64"
+    iniSet "VideoPlugin" "mupen64plus-video-n64"
     iniSet "AudioPlugin" "mupen64plus-audio-omx"
     # Enable bilinear filtering for rice
     # iniSet "Mipmapping" "2"
