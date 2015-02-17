@@ -19,7 +19,6 @@ function sources_mupen64plus-testing() {
         'mupen64plus rsp-hle'
         'gizmo98 video-gles2rice'
         #'Narann video-rice'
-        #'gizmo98 video-gles2n64-1'
         #'Nebuleon video-gles2n64'
         'gizmo98 video-gles2n64 testing'
         'gizmo98 video-glide64mk2 rpi'
@@ -54,7 +53,12 @@ function build_mupen64plus-testing() {
                 [[ "$dir" == "mupen64plus-video-gles2n64" ]] && params+=("VC=1")
                 [[ "$dir" == "mupen64plus-video-gles2n64-1" ]] && params+=("VC=1")
             fi
-            make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS"
+            if isPlatform "rpi2"; then
+                # we can speed up compilation with two threads
+                make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS" -j2
+            else
+                make -C "$dir/projects/unix" all "${params[@]}" OPTFLAGS="$CFLAGS"
+            fi
         fi
     done
 
@@ -80,9 +84,13 @@ function configure_mupen64plus-testing() {
     su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64"
 
     iniConfig " = " "" "$rootdir/configs/n64/mupen64plus.cfg"
-    iniSet "VideoPlugin" "\"mupen64plus-video-n64.so\""
     iniSet "AudioPlugin" "\"mupen64plus-audio-omx.so\""
 
-    mkRomDir "n64-testing"
-    setESSystem "Nintendo 64" "n64-testing" "~/RetroPie/roms/n64-testing" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --noosd --fullscreen --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
+    # create romdir for rice plugin
+    mkRomDir "n64-gles2n64"
+    setESSystem "Nintendo 64" "n64-gles2n64" "~/RetroPie/roms/n64-gles2n64" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --noosd --fullscreen --gfx mupen64plus-video-n64.so --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
+
+    # create romdir for n64 plugin
+    mkRomDir "n64-gles2rice"
+    setESSystem "Nintendo 64" "n64-gles2rice" "~/RetroPie/roms/n64-gles2rice" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --noosd --fullscreen --gfx mupen64plus-video-rice.so --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
 }
