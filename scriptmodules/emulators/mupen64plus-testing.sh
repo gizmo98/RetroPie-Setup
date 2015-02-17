@@ -77,7 +77,7 @@ function configure_mupen64plus-testing() {
     # Copy config files
     cp -v "$md_inst/share/mupen64plus/"{*.ini,font.ttf} "$rootdir/configs/n64/"
     chown -R $user:$user "$rootdir/configs/n64"
-    su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 --noosd --fullscren --gfx mupen64plus-video-n64.so --audio mupen64plus-audio-omx"
+    su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 --noosd --fullscreen --gfx mupen64plus-video-n64.so --audio mupen64plus-audio-omx.so"
 
     mkRomDir "n64-testing"
     setESSystem "Nintendo 64" "n64-testing" "~/RetroPie/roms/n64-testing" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
