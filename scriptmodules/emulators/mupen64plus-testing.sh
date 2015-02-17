@@ -75,7 +75,7 @@ function configure_mupen64plus-testing() {
     rm -f "$rootdir/configs/n64/mupen64plus.cfg"
     mkdir -p "$rootdir/configs/n64/"
     # Copy config files
-    cp -v "$md_inst/share/mupen64plus/"{*.ini,font.ttf} "$rootdir/configs/n64/"
+    cp -v "$md_inst/share/mupen64plus/"{*.ini,font.ttf,*.conf} "$rootdir/configs/n64/"
     chown -R $user:$user "$rootdir/configs/n64"
     su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64"
 
