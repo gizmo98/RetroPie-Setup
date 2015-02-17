@@ -7,6 +7,7 @@ function depends_mupen64plus-testing() {
     if ! hasPackage libsdl2-dev && isPlatform "rpi"; then
         rp_callModule sdl2 install_bin
     fi
+    getDepends libsamplerate0-dev libspeexdsp-dev
 }
 
 function sources_mupen64plus-testing() {
