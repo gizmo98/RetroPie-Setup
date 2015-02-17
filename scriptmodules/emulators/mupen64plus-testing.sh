@@ -22,7 +22,7 @@ function sources_mupen64plus-testing() {
         #'gizmo98 video-gles2n64-1'
         #'Nebuleon video-gles2n64'
         'gizmo98 video-gles2n64 testing'
-        'gizmo98 video-gles2glide64'
+        'gizmo98 video-glide64mk2 rpi'
     )
     local repo
     for repo in "${repos[@]}"; do
