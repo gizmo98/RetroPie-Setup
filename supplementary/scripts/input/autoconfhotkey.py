@@ -66,7 +66,7 @@ for filename in os.listdir(auto_path):
     parser.read_string(config)
 
     # Add config to retroarch autoconfig /RetroPie/emulators/RetroArch/configs/*.cfg
-    WriteAutoConfig(parser, filename)
+    WriteAutoConfig(parser, auto_path + filename)
 exit()
 ########################################################################################
 # End
