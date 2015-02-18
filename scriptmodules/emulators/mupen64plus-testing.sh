@@ -12,15 +12,19 @@ function depends_mupen64plus-testing() {
 
 function sources_mupen64plus-testing() {
     local repos=(
+        #'ricrpi core ric_dev'
         'mupen64plus core'
         'mupen64plus ui-console'
         'gizmo98 audio-omx'
         'mupen64plus audio-sdl'
         'mupen64plus input-sdl'
         'mupen64plus rsp-hle'
-        'gizmo98 video-gles2rice'
+        #'ricrpi video-gles2rice'
+        #'gizmo98 video-gles2rice'
+        'gizmo98 video-rice'
         #'Narann video-rice'
         #'Nebuleon video-gles2n64'
+        #'ricrpi video-gles2n64'
         'gizmo98 video-gles2n64 testing'
         'gizmo98 video-glide64mk2 rpi'
     )
@@ -81,6 +85,13 @@ function configure_mupen64plus-testing() {
     mkdir -p "$rootdir/configs/n64/"
     # Copy config files
     cp -v "$md_inst/share/mupen64plus/"{*.ini,font.ttf,*.conf} "$rootdir/configs/n64/"
+    cat > "$rootdir/configs/n64/mupen64plus.cfg" << _EOF_
+    [Video-Rice]
+
+# Control when the screen will be updated (0=ROM default, 1=VI origin upd$
+ScreenUpdateSetting = 6
+_EOF_
+
     chown -R $user:$user "$rootdir/configs/n64"
     su "$user" -c "$md_inst/bin/mupen64plus --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64"
 
