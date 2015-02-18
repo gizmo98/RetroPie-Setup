@@ -13,3 +13,7 @@ function install_retroarchjoypadautoconf() {
     cp udev/*.cfg "$emudir/retroarch/configs/"
     sudo chown -R $user:$user "$emudir/retroarch/configs"
 }
+
+function install_retroarchjoypadautoconf() { 
+    $rootdir/supplementary/scripts/input/autoconfhotkey.py
+}
