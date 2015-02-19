@@ -29,7 +29,7 @@ def WriteAutoConfig(main_parser, filename):
             configfile.write(RemoveDummySection(config))
             configfile.close()
     except ValueError:
-        print(filename + " could not be modified.")
+        print(filename + " cannot be modified.")
     return(0)
 
 # Add dummy section. ini parser needs at least one section
@@ -57,21 +57,24 @@ auto_path       = home + '/retropie/emulators/retroarch/configs/'
 
 # Read and modify every autoconf file
 for filename in os.listdir(auto_path):
-    # Read ini file and store string in main_cfg 
-    main_cfg  = open(auto_path + filename).read()
-
-    # Remove section if necessary
-    config = RemoveDummySection(main_cfg)
-
-    # Add a section at the beginning. Configparser needs at least one section
-    config  = AddDummySection(main_cfg)
-
-    # Add a configparser and read config
-    parser  = configparser.ConfigParser()
-    parser.read_string(config)
-
-    # Add config to retroarch autoconfig /RetroPie/emulators/RetroArch/configs/*.cfg
-    WriteAutoConfig(parser, auto_path + filename)
+    try:
+        # Read ini file and store string in main_cfg 
+        main_cfg  = open(auto_path + filename).read()
+    
+        # Remove section if necessary
+        config = RemoveDummySection(main_cfg)
+    
+        # Add a section at the beginning. Configparser needs at least one section
+        config  = AddDummySection(main_cfg)
+    
+        # Add a configparser and read config
+        parser  = configparser.ConfigParser()
+        parser.read_string(config)
+    
+        # Add config to retroarch autoconfig /RetroPie/emulators/RetroArch/configs/*.cfg
+        WriteAutoConfig(parser, auto_path + filename)
+    except ValueError:
+        print(filename + " cannot be modified.")
 exit()
 ########################################################################################
 # End
