@@ -9,10 +9,10 @@ function sources_retroarchjoypadautoconf() {
 
 function install_retroarchjoypadautoconf() {
     mkdir -p "$emudir/retroarch/configs/"
-    cp -v "$md_build/udev/"{*.cfg} "$emudir/retroarch/configs/"
-    sudo chown -R $user:$user "$emudir/retroarch/configs"
+    cp -r $md_build/udev/* $emudir/retroarch/configs/
+    sudo chown -R $user:$user $emudir/retroarch/configs/
 }
 
-function install_retroarchjoypadautoconf() { 
-    $rootdir/supplementary/scripts/input/autoconfhotkey.py
+function configure_retroarchjoypadautoconf() { 
+    $scriptdir/supplementary/setAutoconfHotkeys.py
 }
