@@ -7,26 +7,29 @@ section = 'start'
 
 # write RetroArch Autoconfig
 def WriteAutoConfig(main_parser, filename):
-    # add special keys
-    main_parser = AutoConfigHelper(main_parser,'input_enable_hotkey','input_select')
-    main_parser = AutoConfigHelper(main_parser,'input_exit_emulator','input_start')
-    main_parser = AutoConfigHelper(main_parser,'input_menu_toggle','input_x')
-    main_parser = AutoConfigHelper(main_parser,'input_load_state','input_l')
-    main_parser = AutoConfigHelper(main_parser,'input_save_state','input_r')
-    main_parser = AutoConfigHelper(main_parser,'input_reset','input_b')
-    main_parser = AutoConfigHelper(main_parser,'input_state_slot_increase','input_right')
-    main_parser = AutoConfigHelper(main_parser,'input_state_slot_decrease','input_left')
+    try:
+        # add special keys
+        main_parser = AutoConfigHelper(main_parser,'input_enable_hotkey','input_select')
+        main_parser = AutoConfigHelper(main_parser,'input_exit_emulator','input_start')
+        main_parser = AutoConfigHelper(main_parser,'input_menu_toggle','input_x')
+        main_parser = AutoConfigHelper(main_parser,'input_load_state','input_l')
+        main_parser = AutoConfigHelper(main_parser,'input_save_state','input_r')
+        main_parser = AutoConfigHelper(main_parser,'input_reset','input_b')
+        main_parser = AutoConfigHelper(main_parser,'input_state_slot_increase','input_right')
+        main_parser = AutoConfigHelper(main_parser,'input_state_slot_decrease','input_left')
 
-    # write autoconfig
-    with open(filename, 'w') as configfile:
-        main_parser.write(configfile)
-        configfile.close()
-
-    # read config file, delete section and write autoconfig
-    config = open(filename).read()
-    with open(filename,'w') as configfile:
-        configfile.write(RemoveDummySection(config))
-        configfile.close()
+        # write autoconfig
+        with open(filename, 'w') as configfile:
+            main_parser.write(configfile)
+            configfile.close()
+    
+        # read config file, delete section and write autoconfig
+        config = open(filename).read()
+        with open(filename,'w') as configfile:
+            configfile.write(RemoveDummySection(config))
+            configfile.close()
+    except ValueError:
+        print filename + " could not be modified. Try again..."
     return(0)
 
 # Add dummy section. ini parser needs at least one section
@@ -52,7 +55,9 @@ def AutoConfigHelper(parser, hotkey, key):
 home            = '/opt'
 auto_path       = home + '/retropie/emulators/retroarch/configs/'
 
+# Read and modify every autoconf file
 for filename in os.listdir(auto_path):
+    # Read ini file and store string in main_cfg 
     main_cfg  = open(filename).read()
 
     # Remove section if necessary
