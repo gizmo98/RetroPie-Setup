@@ -73,7 +73,7 @@ for filename in os.listdir(auto_path):
     
         # Add config to retroarch autoconfig /RetroPie/emulators/RetroArch/configs/*.cfg
         WriteAutoConfig(parser, auto_path + filename)
-    except ValueError:
+    except:
         print(filename + " cannot be modified.")
 exit()
 ########################################################################################
