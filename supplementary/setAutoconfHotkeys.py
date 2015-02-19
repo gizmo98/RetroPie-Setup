@@ -29,7 +29,7 @@ def WriteAutoConfig(main_parser, filename):
             configfile.write(RemoveDummySection(config))
             configfile.close()
     except ValueError:
-        print filename + " could not be modified. Try again..."
+        print(filename + " could not be modified.")
     return(0)
 
 # Add dummy section. ini parser needs at least one section
@@ -58,7 +58,7 @@ auto_path       = home + '/retropie/emulators/retroarch/configs/'
 # Read and modify every autoconf file
 for filename in os.listdir(auto_path):
     # Read ini file and store string in main_cfg 
-    main_cfg  = open(filename).read()
+    main_cfg  = open(auto_path + filename).read()
 
     # Remove section if necessary
     config = RemoveDummySection(main_cfg)
