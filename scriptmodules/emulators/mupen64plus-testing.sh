@@ -114,4 +114,8 @@ _EOF_
     # create romdir for n64 plugin
     mkRomDir "n64-gles2rice"
     setESSystem "Nintendo 64" "n64-gles2rice" "~/RetroPie/roms/n64-gles2rice" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --noosd --fullscreen --gfx mupen64plus-video-rice.so --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
+
+    # create romdir for n64 plugin
+    mkRomDir "n64-glide64mk2"
+    setESSystem "Nintendo 64" "n64-glide64mk2" "~/RetroPie/roms/n64-glide64mk2" ".z64 .Z64 .n64 .N64 .v64 .V64" "$rootdir/supplementary/runcommand/runcommand.sh 1 \"$md_inst/bin/mupen64plus --noosd --fullscreen --gfx mupen64plus-video-glide64mk2.so --configdir $rootdir/configs/n64 --datadir $rootdir/configs/n64 %ROM%\" \"$md_id\"" "n64" "n64"
 }
