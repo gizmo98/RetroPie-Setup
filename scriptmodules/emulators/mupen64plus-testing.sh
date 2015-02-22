@@ -31,6 +31,7 @@ function sources_mupen64plus-testing() {
         repo=($repo)
         gitPullOrClone "$md_build/mupen64plus-${repo[1]}" https://github.com/${repo[0]}/mupen64plus-${repo[1]} ${repo[2]}
     done
+    gitPullOrClone "$md_build/mupen64plus-video-settings" https://github.com/gizmo98/mupen64plus-video-settings.git
 }
 
 function build_mupen64plus-testing() {
@@ -75,6 +76,7 @@ function install_mupen64plus-testing() {
             make -C "$source/projects/unix" PREFIX="$md_inst" OPTFLAGS="$CFLAGS" VC=1 install
         fi
     done
+    cp -v "$md_build/mupen64plus-video-settings/"{*.ini,font.ttf,*.conf} "$md_inst/share/mupen64plus/"
 }
 
 function configure_mupen64plus-testing() {
