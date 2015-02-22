@@ -17,6 +17,8 @@ _EOF_
 
 function sources_retroarch() {
     gitPullOrClone "$md_build" git://github.com/libretro/RetroArch.git
+    gitPullOrClone "$md_build/overlays" git://github.com/libretro/common-overlays.git
+    gitPullOrClone "$md_build/assets" git://github.com/libretro/retroarch-assets.git
 }
 
 function build_retroarch() {
@@ -51,6 +53,9 @@ function configure_retroarch() {
     fi
 
     mkdir -p "$configdir/all/"
+    mkdir -p "$md_inst/overlays"
+    mkdir -p "$md_inst/assets"
+    
     cp "$md_inst/retroarch.cfg" "$configdir/all/"
 
     iniConfig " = " "" "$configdir/all/retroarch.cfg"
@@ -60,6 +65,9 @@ function configure_retroarch() {
     iniSet "video_smooth" "false"
     iniSet "video_threaded" "true"
     iniSet "core_options_path" "$configdir/all/retroarch-core-options.cfg"
+    iniSet "assets_directory" "$md_inst/assets"
+    iniSet "overlay_directory" "$md_inst/overlays"
+
 
     # enable hotkey ("select" button)
     iniSet "input_enable_hotkey" "nul"
