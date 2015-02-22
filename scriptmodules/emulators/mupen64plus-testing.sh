@@ -15,17 +15,15 @@ function sources_mupen64plus-testing() {
         #'ricrpi core ric_dev'
         'mupen64plus core'
         'mupen64plus ui-console'
-        'gizmo98 audio-omx'
+        'ricrpi audio-omx'
         'mupen64plus audio-sdl'
         'mupen64plus input-sdl'
         'mupen64plus rsp-hle'
         #'ricrpi video-gles2rice'
-        #'gizmo98 video-gles2rice'
-        'gizmo98 video-rice'
+        'mupen64plus video-rice'
         #'Narann video-rice'
         #'Nebuleon video-gles2n64'
-        #'ricrpi video-gles2n64'
-        'gizmo98 video-gles2n64 testing'
+        'ricrpi video-gles2n64'
         'gizmo98 video-glide64mk2 rpi'
     )
     local repo
@@ -87,9 +85,20 @@ function configure_mupen64plus-testing() {
     cp -v "$md_inst/share/mupen64plus/"{*.ini,font.ttf,*.conf} "$rootdir/configs/n64/"
     cat > "$rootdir/configs/n64/mupen64plus.cfg" << _EOF_
     [Video-Rice]
-
-# Control when the screen will be updated (0=ROM default, 1=VI origin upd$
+# Control when the screen will be updated (0=ROM default, 1=VI origin update, 2=VI origin change, 3=CI change, 4=first CI change, 5=first primitive draw, 6=before screen clear, 7=after screen drawn)
 ScreenUpdateSetting = 6
+# Frequency to write back the frame buffer (0=every frame, 1=every other frame, etc)
+FrameBufferWriteBackControl = 1
+# If this option is enabled, the plugin will skip every other frame
+SkipFrame = False
+# If this option is enabled, the plugin will only draw every other screen update
+SkipScreenUpdate = False
+# Force to use texture filtering or not (0=auto: n64 choose, 1=force no filtering, 2=force filtering)
+ForceTextureFilter = 2
+# Primary texture enhancement filter (0=None, 1=2X, 2=2XSAI, 3=HQ2X, 4=LQ2X, 5=HQ4X, 6=Sharpen, 7=Sharpen More, 8=External, 9=Mirrored)
+TextureEnhancement = 6
+# Secondary texture enhancement filter (0 = none, 1-4 = filtered)
+TextureEnhancementControl = 0
 _EOF_
 
     chown -R $user:$user "$rootdir/configs/n64"
