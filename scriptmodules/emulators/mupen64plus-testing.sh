@@ -76,7 +76,7 @@ function install_mupen64plus-testing() {
             make -C "$source/projects/unix" PREFIX="$md_inst" OPTFLAGS="$CFLAGS" VC=1 install
         fi
     done
-    cp -v "$md_build/mupen64plus-video-settings/"{*.ini,font.ttf,*.conf} "$md_inst/share/mupen64plus/"
+    cp -v "$md_build/mupen64plus-video-settings/"{*.ini,*.conf} "$md_inst/share/mupen64plus/"
 }
 
 function configure_mupen64plus-testing() {
