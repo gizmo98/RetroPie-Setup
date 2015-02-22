@@ -99,6 +99,10 @@ ForceTextureFilter = 2
 TextureEnhancement = 6
 # Secondary texture enhancement filter (0 = none, 1-4 = filtered)
 TextureEnhancementControl = 0
+
+[Video-Glide64mk2]
+# Wrapper FBO
+wrpFBO = False
 _EOF_
 
     chown -R $user:$user "$rootdir/configs/n64"
