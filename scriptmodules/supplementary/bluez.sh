@@ -37,12 +37,5 @@ _EOF_
     
   /etc/init.d/bluetooth start
   
-  printMsgs "dialog" "Please connect your PS3 controller via USB-CABLE and press ENTER."
-  # wait 5 seconds so bluez has enough to create directories
-  sleep 5
-  for file in $(grep -l "Name=PLAYSTATION(R)3 Controller" /var/lib/bluetooth/*/*/info); do
-    sed -i "s/Trusted=false/Trusted=true/ig" $file
-  done
-  
-  /etc/init.d/bluetooth restart
+  rp_callModule bluezps3
 }
