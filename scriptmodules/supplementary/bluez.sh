@@ -37,20 +37,12 @@ _EOF_
     
   /etc/init.d/bluetooth start
   
-  cmd=(dialog --backtitle "$__backtitle" --menu "Choose the desired hotkey behaviour." 22 76 16)
-  options=(1 "Set PS3 controller as trusted.")
-    choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
-    if [[ -n "$choices" ]]; then
-        case $choices in
-            1) dialog --backtitle "$__backtitle" --msgbox "Instructions:
-              1. Connect PS3 controller with a usb cable.
-              2. Type <agent on>.
-              3. Type <default-agent>.
-              4. Press PS button on your controller.
-              5. Type <yes> if asked to.
-              6. Type <exit>." 22 76
-                bluetoothctl
-                            ;;
-        esac
-    fi
+  printMsgs "dialog" "Please connect your PS3 controller via USB-CABLE and press ENTER."
+  # wait 5 seconds so bluez has enough to create directories
+  sleep 5
+  for file in $(grep -l "Name=PLAYSTATION(R)3 Controller" /var/lib/bluetooth/*/*/info); do
+    sed -i "s/Trusted=false/Trusted=true/ig" $file
+  done
+  
+  /etc/init.d/bluetooth restart
 }
