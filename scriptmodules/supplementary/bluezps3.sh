@@ -16,7 +16,9 @@ function configure_bluezps3() {
   #done
   for dir in $( /var/lib/bluetooth/*/*/); do
     if grep -q "Name=PLAYSTATION(R)3 Controller" $dir/info; then
-      echo -e 'trust $dir\nquit' | bluetoothctl
+      echo -e 'trust $(basename $dir)\nquit' | bluetoothctl
+      echo $dir
+      echo $(basename $dir)
     fi
   done
   
