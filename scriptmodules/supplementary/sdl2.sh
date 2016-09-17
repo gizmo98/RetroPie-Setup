@@ -12,13 +12,21 @@
 rp_module_id="sdl2"
 rp_module_desc="SDL (Simple DirectMedia Layer) v2.x"
 rp_module_section=""
-rp_module_flags="!x86"
+rp_module_flags=""
 
 function get_ver_sdl2() {
     local ver="2.0.4+4"
     isPlatform "rpi" && ver+="rpi"
     isPlatform "mali" && ver+="mali"
     echo "$ver"
+}
+
+function get_arch_sdl2() {
+    local arch=""
+    isPlatform "arm" && arch="armhf"
+    isPlatform "x86" && arch="i386"
+    isPlatform "x64" && arch="amd64"
+    echo "$arch"
 }
 
 function depends_sdl2() {
@@ -34,6 +42,7 @@ function sources_sdl2() {
     local branch="release-2.0.4"
     isPlatform "rpi" && branch="retropie-2.0.4"
     isPlatform "mali" && branch="mali-2.0.4"
+    isPlatform "x86" && branch="retropie-2.0.4"
     gitPullOrClone "$md_build/$(get_ver_sdl2)" https://github.com/RetroPie/SDL-mirror.git "$branch"
     cd $(get_ver_sdl2)
     DEBEMAIL="Jools Wills <buzz@exotica.org.uk>" dch -v $(get_ver_sdl2) "SDL 2.0.4 configured for the $__platform"
@@ -42,7 +51,7 @@ function sources_sdl2() {
 function build_sdl2() {
     cd $(get_ver_sdl2)
     dpkg-buildpackage
-    md_ret_require="$md_build/libsdl2-dev_$(get_ver_sdl2)_armhf.deb"
+    md_ret_require="$md_build/libsdl2-dev_$(get_ver_sdl2)_$(get_arch_sdl2).deb"
     local dest="$__tmpdir/archives/$__raspbian_name/$__platform"
     mkdir -p "$dest"
     cp ../*.deb "$dest/"
@@ -56,7 +65,7 @@ function remove_old_sdl2() {
 function install_sdl2() {
     remove_old_sdl2
     # if the packages don't install completely due to missing dependencies the apt-get -y -f install will correct it
-    if ! dpkg -i libsdl2-2.0-0_$(get_ver_sdl2)_armhf.deb libsdl2-dev_$(get_ver_sdl2)_armhf.deb; then
+    if ! dpkg -i libsdl2-2.0-0_$(get_ver_sdl2)_$(get_arch_sdl2).deb libsdl2-dev_$(get_ver_sdl2)_$(get_arch_sdl2).deb; then
         apt-get -y -f install
     fi
     echo "libsdl2-dev hold" | dpkg --set-selections
