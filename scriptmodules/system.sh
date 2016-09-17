@@ -174,8 +174,11 @@ function get_platform() {
                 ;;
             *)
                 case $architecture in
-                    i686|x86_64|amd64)
+                    i686)
                         __platform="x86"
+                        ;;
+                    x86_64|amd64)
+                        __platform="x64"
                         ;;
                 esac
                 ;;
@@ -242,6 +245,14 @@ function platform_x86() {
     __default_asflags=""
     __default_makeflags="-j$(nproc)"
     __platform_flags="x11"
+    __has_binaries=0
+}
+
+function platform_x64() {
+    __default_cflags="-O3 -march=native"
+    __default_asflags=""
+    __default_makeflags="-j$(nproc)"
+    __platform_flags="x11 x86"
     __has_binaries=0
 }
 
