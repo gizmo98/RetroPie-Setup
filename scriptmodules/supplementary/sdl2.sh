@@ -18,12 +18,14 @@ function get_ver_sdl2() {
     local ver="2.0.4+4"
     isPlatform "rpi" && ver+="rpi"
     isPlatform "mali" && ver+="mali"
+    isPlatform "x86" && ver+="x86"
     echo "$ver"
 }
 
 function get_arch_sdl2() {
     local arch=""
     isPlatform "arm" && arch="armhf"
+    isPlatform "rpi3-64" && arch="arm64"
     isPlatform "x86" && arch="i386"
     isPlatform "x64" && arch="amd64"
     echo "$arch"
@@ -42,7 +44,7 @@ function sources_sdl2() {
     local branch="release-2.0.4"
     isPlatform "rpi" && branch="retropie-2.0.4"
     isPlatform "mali" && branch="mali-2.0.4"
-    isPlatform "x86" && branch="retropie-2.0.4"
+    isPlatform "x86" && branch="x86-2.0.4"
     gitPullOrClone "$md_build/$(get_ver_sdl2)" https://github.com/RetroPie/SDL-mirror.git "$branch"
     cd $(get_ver_sdl2)
     DEBEMAIL="Jools Wills <buzz@exotica.org.uk>" dch -v $(get_ver_sdl2) "SDL 2.0.4 configured for the $__platform"
