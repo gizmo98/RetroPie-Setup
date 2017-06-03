@@ -39,6 +39,7 @@ function sources_mupen64plus() {
         )
         if isPlatform "neon"; then
             repos+=('mupen64plus rsp-cxd4')
+        fi
     else
         repos+=(
             'mupen64plus video-glide64mk2'
@@ -110,6 +111,7 @@ function build_mupen64plus() {
         )
         if isPlatform "neon"; then
             md_ret_require+=('mupen64plus-rsp-cxd4/projects/unix/mupen64plus-rsp-cxd4.so')
+        fi
     else
         md_ret_require+=(
             'mupen64plus-video-glide64mk2/projects/unix/mupen64plus-video-glide64mk2.so'
