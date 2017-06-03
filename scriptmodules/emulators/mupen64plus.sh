@@ -38,7 +38,7 @@ function sources_mupen64plus() {
             'ricrpi video-gles2n64'
         )
         if isPlatform "neon"; then
-            repos+=('mupen64plus rsp-cxd4')
+            repos+=('gizmo98 rsp-cxd4 neon')
         fi
     else
         repos+=(
