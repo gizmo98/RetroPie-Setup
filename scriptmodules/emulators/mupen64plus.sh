@@ -37,6 +37,8 @@ function sources_mupen64plus() {
             'ricrpi video-gles2rice pandora-backport'
             'ricrpi video-gles2n64'
         )
+        if isPlatform "neon"; then
+            repos+=('mupen64plus rsp-cxd4')
     else
         repos+=(
             'mupen64plus video-glide64mk2'
@@ -67,7 +69,7 @@ function build_mupen64plus() {
             make -C "$dir/projects/unix" clean
             params=()
             isPlatform "rpi1" && params+=("VFP=1" "VFP_HARD=1" "HOST_CPU=armv6")
-            isPlatform "rpi" && params+=("VC=1")
+            isPlatform "rpi" && params+=("VC=1" "HLEVIDEO=1")
             isPlatform "neon" && params+=("NEON=1")
             isPlatform "x11" && params+=("OSD=1" "PIE=1")
             isPlatform "x86" && params+=("SSE=SSSE3")
@@ -106,6 +108,8 @@ function build_mupen64plus() {
             'mupen64plus-video-gles2n64/projects/unix/mupen64plus-video-n64.so'
             'mupen64plus-audio-omx/projects/unix/mupen64plus-audio-omx.so'
         )
+        if isPlatform "neon"; then
+            md_ret_require+=('mupen64plus-rsp-cxd4/projects/unix/mupen64plus-rsp-cxd4.so')
     else
         md_ret_require+=(
             'mupen64plus-video-glide64mk2/projects/unix/mupen64plus-video-glide64mk2.so'
