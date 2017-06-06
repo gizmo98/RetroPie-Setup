@@ -248,7 +248,7 @@ function testCompatibility() {
             fi
             iniConfig " = " "" "$config"
             iniSet "DisplayListToGraphicsPlugin" "False"
-            iniSet "AudioListToAudioPlugin" "True"
+            iniSet "AudioListToAudioPlugin" "False"
         fi
     done
 
