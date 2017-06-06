@@ -169,10 +169,15 @@ function testCompatibility() {
     # fallback for glesn64 and rice plugin
     # some roms lead to a black screen of death
     local game
+    
     local blacklist=(
+    )
+
+    local HLE_blacklist=(
         gauntlet
         rogue
         squadron
+        stunt
     )
 
     local glesn64_blacklist=(
@@ -232,6 +237,18 @@ function testCompatibility() {
     for game in "${AudioOMX_blacklist[@]}"; do
         if [[ "${ROM,,}" == *"$game"* ]]; then
             AUDIO_PLUGIN="mupen64plus-audio-sdl"
+        fi
+    done
+
+    for game in "${HLE_blacklist[@]}"; do
+        if [[ "${ROM,,}" == *"$game"* ]]; then
+            RSP_PLUGIN="mupen64plus-rsp-cxd4"
+            if ! grep -q "\[rsp-cxd4\]" "$config"; then
+                echo "[rsp-cxd4]" >> "$config"
+            fi
+            iniConfig " = " "" "$config"
+            iniSet "DisplayListToGraphicsPlugin" "False"
+            iniSet "AudioListToAudioPlugin" "True"
         fi
     done
 
